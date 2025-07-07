@@ -1,0 +1,265 @@
+package stepDefinitions;
+
+import io.cucumber.core.api.Scenario;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.*;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+import requestBuilder.OtherExpenseRequestBuilder;
+import utils.ReusableMethods;
+import static io.restassured.RestAssured.given;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.Assert;
+
+import com.jayway.jsonpath.JsonPath;
+
+
+
+
+public class CreateExpense extends ReusableMethods{
+String requestData;
+static Response response;
+Scenario scenario;
+String flag;
+
+@Before
+public void setUp(Scenario scenario){
+this.scenario=scenario;
+}
+
+@Given("User creates request data {string} , {string}, {string},{string} for OtherExpense API")
+public void user_creates_request_data_for_OtherExpense_API(String name, String amount, String expenseDateTime, String expenseNameID) {
+  // create OtherExpense Request data
+if(flag.equals("true")){
+OtherExpenseRequestBuilder reqBuilder=new OtherExpenseRequestBuilder();
+reqBuilder.setName(name);
+reqBuilder.setAmount(amount);
+reqBuilder.setExpenseDateTime(expenseDateTime);
+reqBuilder.setExpenseType("Other");
+reqBuilder.setOtherExpenseNameId(expenseNameID);
+// convert object to String
+requestData= convertObjectToString(reqBuilder);
+scenario.write(requestData);
+}
+}
+
+@Given("User submits POST request to {string} api")
+public void user_submits_POST_request_to_api(String url) {
+if(flag.equals("true")){
+     response=given()
+  .header("Authorization", "Bearer "+getToken())
+  .contentType(ContentType.JSON)
+  .body(requestData)
+  .when()
+     .post(property.getProperty(url));
+response.prettyPrint();
+//write response to report
+scenario.write(response.asPrettyString());
+//attach response to report
+scenario.embed(response.asPrettyString().getBytes(), "application/json");
+ }
+}
+@Given("User validates if the statusCode is {int}")
+public void user_validates_if_the_statusCode_is(int expectedStatusCode) {
+if(flag.equals("true")){
+scenario.write("Status code: "+response.getStatusCode());
+Assert.assertEquals(expectedStatusCode, response.getStatusCode());
+}
+}
+
+@Then("User validate if value of name in response is {string}")
+public void user_validate_if_value_of_name_in_response_is(String responseName) {
+   
+String actualValue=JsonPath.read(response.asString(), "$.result.name");
+scenario.write("Expected Value:::  "+responseName+"   Actual Value::::  "+actualValue);
+Assert.assertEquals(responseName,actualValue);
+}
+
+
+@Then("User validates elements in response")
+public void user_validates_elements_in_response(List<String> elementList) {
+   Map<String, Object> map=JsonPath.read(response.asString(), "$.result");
+   Set<String>keySet=map.keySet();
+   
+   for (String eachElement : elementList) {
+Assert.assertTrue(keySet.contains(eachElement));
+}
+}
+
+
+@Given("User set flag as {string}")
+public void user_set_flag_as(String flag) {
+ this.flag=flag;
+}
+
+@Then("User validates {string} in expense response")
+public void user_validates_in_expense_response(String element) {
+Map<String, Object> map=JsonPath.read(response.asString(), "$.result");
+Set<String>keySet=map.keySet();
+
+Assert.assertTrue(keySet.contains(element));
+scenario.write(element+" exist in response");
+scenario.write("Value of "+element+" is "+map.get(element));
+}
+
+}
+7:48
+Feature: Create Other Expense
+
+@createExpense  @hw  @apiRegression
+Scenario Outline: Create Expenses - Positive Scenario
+Given User set flag as "true"
+    Given User creates request data "<name>" , "<amount>", "<expenseDateTime>","<expenseNameID>" for OtherExpense API
+    And User submits POST request to "CreateExpense_URL" api
+    And User validates if the statusCode is 200
+    Then User validate if value of name in response is "<responseName>"
+     Examples:
+     | name        | expenseNameID | expenseDateTime     | amount | responseName |
+     | Pizza | 1             | 09/01/2020 01:36:29 | 555.5  | Electricity  |
+     | Pizza       | 2             | 08/30/2020 01:36:29 | 666.6  | Rent         |
+     | Pizza       | 3             | 07/28/2020 01:36:29 | 777.7  | Gas          |
+     | Pizza       | 4             | 09/14/2020 01:36:29 | 888.8  | Pizza        |
+     
+     
+ @otherExpense  @apiRegression
+  Scenario: Create expense - Positive scenario
+    Given User set flag as "true"
+    Given User creates request data "Health Insurance" , "77.00", "07/06/2020 01:36:29","1" for OtherExpense API
+    And User submits POST request to "CreateExpense_URL" api
+    And User validates if the statusCode is 200
+    Then User validates elements in response
+|id               |
+|name   |
+    |amount   |
+    |expenseType |
+    |expenseDateTime |
+    |businessPurpose |
+    |natureOfGift   |
+    |giftRecipient |
+    |vendorName   |
+    |destinationOfTravel |
+    |company |
+    |projectName |
+    |longitude |
+    |latitude     |
+    |placeName |
+    |placeAddress   |
+    |placeId |
+    |placeIcon |
+    |expenseRelationshipId |
+    |travelExpenseTypeId |
+    |otherExpenseNameId    |
+    |otherRelationship     |
+    |receiptFile |
+    |receiptUrl |
+   
+   
+   
+   
+   
+    @otherExpense  @apiRegression @TestFlag
+   Scenario Outline: Create expense - Positive scenario
+    Given User set flag as "<flag>"
+    Given User creates request data "Health Insurance" , "77.00", "07/06/2020 01:36:29","1" for OtherExpense API
+    And User submits POST request to "CreateExpense_URL" api
+    And User validates if the statusCode is 200
+    Then User validates "<element>" in expense response
+
+Examples:
+|flag   |element   |
+|true   |id       |
+|false  |name   |
+    |false  |amount   |
+    |false  |expenseType |
+    |false  |expenseDateTime |
+    |false  |businessPurpose |
+    |false  |natureOfGift   |
+    |false  |giftRecipient |
+    |false  |vendorName   |
+    |false  |destinationOfTravel |
+    |false  |company |
+    |false  |projectName |
+    |false  |longitude |
+    |false  |latitude     |
+    |false  |placeName |
+    |false  |placeAddress   |
+    |false  |placeId |
+    |false  |placeIcon |
+    |false  |expenseRelationshipId |
+    |false  |travelExpenseTypeId |
+    |false  |otherExpenseNameId    |
+    |false  |otherRelationship     |
+    |false  |receiptFile |
+    |false  |receiptUrl |
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+package utils;
+
+import static io.restassured.RestAssured.given;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
+
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import requestBuilder.TokenRequestBuilder;
+
+public class ReusableMethods extends Base{
+
+public String getToken(){
+String userName=property.getProperty("UserID");
+String password=property.getProperty("password");
+
+String requestData=createTokenRequestData(userName, password);
+Response response= submitTokenRequest(requestData);
+
+String token=JsonPath.read(response.asString(), "$.result.accessToken");
+return token;
+}
+
+
+// Submit TOKEN API request
+public Response submitTokenRequest(String requestData){
+Response response=given()
+.contentType(ContentType.JSON)
+.body(requestData)
+.when()
+.post(property.getProperty("TOKEN_URL"));
+response.prettyPrint();
+
+return response;
+}
+
+
+//this method creates Token request body
+public String createTokenRequestData(String userName, String password){
+TokenRequestBuilder reqBuilder=new TokenRequestBuilder();
+reqBuilder.setUsernameOrEmailAddress(userName);
+reqBuilder.setPassword(password);
+// convert object to string;
+return convertObjectToString(reqBuilder);
+}
+
+
+
+// this method convert object to String
+public String convertObjectToString(Object obj) {
+String strReqData=null;
+try {
+ObjectMapper objMapper=new ObjectMapper();
+strReqData=objMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+} catch (JsonProcessingException e) {
+e.printStackTrace();
+}
+
+return  strReqData;
+}
+
+}

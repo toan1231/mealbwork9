@@ -1,0 +1,25 @@
+
+2025-07-02 19:29:53,247 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-02 19:29:53,285 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-02 19:29:57,270 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOENTER
+2025-07-02 19:29:58,046 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-02 19:29:58,081 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-02 19:30:01,244 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOTAB
+2025-07-02 19:30:02,015 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-02 19:30:02,033 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-02 19:30:05,014 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOSPACE
+2025-07-02 19:30:05,731 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-02 19:30:05,745 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-02 19:30:08,808 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOBACK_SPACE
+2025-07-03 10:24:20,812 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-03 10:24:20,887 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-03 10:24:24,670 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOENTER
+2025-07-03 10:24:25,435 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-03 10:24:25,445 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-03 10:24:28,307 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOTAB
+2025-07-03 10:24:29,021 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-03 10:24:29,034 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-03 10:24:31,823 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOSPACE
+2025-07-03 10:24:32,534 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Using msedgedriver 138.0.3351.65 (resolved driver for Edge 138)
+2025-07-03 10:24:32,559 - io.github.bonigarcia.wdm.WebDriverManager -INFO - Exporting webdriver.edge.driver as C:\Users\Chau.Thai\.cache\selenium\msedgedriver\win64\138.0.3351.65\msedgedriver.exe
+2025-07-03 10:24:38,106 - ui_automation.step_definitions.HerokuAppSteps -INFO - this is INFOBACK_SPACE
