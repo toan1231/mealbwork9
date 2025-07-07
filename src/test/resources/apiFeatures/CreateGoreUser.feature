@@ -12,4 +12,4 @@ Feature: Create new user in Gorest API
 
     Examples:
       | name     | email             | gender | status |
-      | Minhtoan | miuiut8@gmail.com | male   | Active |
+      | Minhtoan | miuiut8@gmail.com | male   | inactive |
